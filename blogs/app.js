@@ -1,3 +1,5 @@
+/* eslint-disable space-before-function-paren */
+/* eslint-disable object-curly-spacing */
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');

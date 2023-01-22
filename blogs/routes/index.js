@@ -1,8 +1,10 @@
-var express = require('express');
-var router = express.Router();
+/* eslint-disable object-curly-spacing */
+const express = require('express');
+// eslint-disable-next-line new-cap
+const router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
   res.render('index', { title: 'Express' });
 });
 

@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "start:dev": "nodemon ./bin/www"
+    "start:dev": "npx nodemon ./bin/www",
+    "lint": "npx eslint routes",
+    "lint:fix": "npx eslint routes --fix"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -18,6 +20,9 @@
     "morgan": "~1.9.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "eslint": "^8.32.0",
+    "eslint-config-google": "^0.14.0",
+    "nodemon": "^2.0.20",
+    "npx": "^10.2.2"
   }
 }
