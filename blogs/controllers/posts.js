@@ -1,3 +1,5 @@
+/* eslint-disable space-before-function-paren */
+/* eslint-disable object-curly-spacing */
 let posts = [
   { id: '1', title: 'test1', content: 'tex1t' },
   { id: '2', title: 'test2', content: 'text2' },
