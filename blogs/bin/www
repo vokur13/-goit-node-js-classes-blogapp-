@@ -1,4 +1,8 @@
 #!/usr/bin/env node
+/* eslint-disable object-curly-spacing */
+/* eslint-disable comma-dangle */
+/* eslint-disable indent */
+/* eslint-disable require-jsdoc */
 
 /**
  * Module dependencies.
@@ -7,6 +11,7 @@
 const app = require('../app');
 const debug = require('debug')('blogs:server');
 const http = require('http');
+const { MongoClient } = require('mongodb');
 
 /**
  * Get port from environment and store in Express.
@@ -25,9 +30,24 @@ const server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+const start = async () => {
+  const client = await MongoClient.connect(
+    'mongodb+srv://mangoAdmin:qwer1234@cluster0.bmlkmod.mongodb.net/blogs?retryWrites=true&w=majority',
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  );
+  const db = client.db();
+  const Posts = db.collection('posts');
+  const posts = Posts.find({}).toArray();
+  console.log(posts);
+  server.listen(port);
+  server.on('error', onError);
+  server.on('listening', onListening);
+};
+
+start();
 
 /**
  * Normalize a port into a number, string, or false.
