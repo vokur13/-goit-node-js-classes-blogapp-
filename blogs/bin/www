@@ -26,28 +26,39 @@ app.set('port', port);
 
 const server = http.createServer(app);
 
-/**
- * Listen on provided port, on all network interfaces.
- */
+// Connection URL
+const url =
+  'mongodb+srv://mangoAdmin:qwer1234@cluster0.bmlkmod.mongodb.net/?retryWrites=true&w=majority';
+const client = new MongoClient(url);
 
-const start = async () => {
-  const client = await MongoClient.connect(
-    'mongodb+srv://mangoAdmin:qwer1234@cluster0.bmlkmod.mongodb.net/blogs?retryWrites=true&w=majority',
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  );
-  const db = client.db();
-  const Posts = db.collection('posts');
-  const posts = Posts.find({}).toArray();
-  console.log(posts);
+// Database Name
+const dbName = 'blogs';
+
+async function main() {
+  // Use connect method to connect to the server
+  await client.connect();
+  console.log('Database connection successful');
+  const db = client.db(dbName);
+  const collection = db.collection('posts');
+
+  const findResult = await collection.find({}).toArray();
+  console.log('Found documents =>', findResult);
+
+  /**
+   * Listen on provided port, on all network interfaces.
+   */
+
   server.listen(port);
   server.on('error', onError);
   server.on('listening', onListening);
-};
 
-start();
+  return 'done.';
+}
+
+main()
+  .then(console.log)
+  .catch(console.error)
+  .finally(() => client.close());
 
 /**
  * Normalize a port into a number, string, or false.
